@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <title>Games</title>
+    <link rel="icon" type="image/png" href="{% static 'shop/image/home_page.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user/css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'shop/css/bootstrap.min.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+
+</head>
+{% endblock %}
+
+{% block body %}
+<body class="bg-profile">
+<h4 style="color: #FFB800; font-size: 50px; text-align: center">Welcome!</h4>
+
+{% if not request.user.is_authenticated %}
+<div style="margin-left: 880px">
+    <a class="btn btn-warning" href="{% url 'register_user' %}" role="button">Register</a>
+    <a class="btn btn-warning" href="{% url 'login' %}" role="button">Login</a>
+</div>
+{% else %}
+<div style="margin-left: 860px">
+    <a class="btn btn-warning" href="{% url 'user_profile' request.user.id %}" role="button">My profile</a>
+    <a class="btn btn-warning" href="{% url 'logout' %}" role="button">Logout</a>
+</div>
+{% endif %}
+<br>
+
+<div class="container text-center">
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+      {% for i_item in items %}
+          <div class="col" style="margin-right: 50px">
+              <div class="card" style="width: 18rem;">
+                  {% if not i_item.picture %}
+                  <img src="{% static 'shop/image/no_image.jpg' %}" alt="game-pic" style="max-height: 170px;">
+                  {% else %}
+                  <img src="{{ i_item.picture.url }}" alt="game-pic" style="max-height: 170px;">
+                  {% endif %}
+                  <div class="card-body">
+                      <p class="card-text" style="color: black; font-size: 20px">{{ i_item.title }}</p>
+                      <p class="card-text"><small class="text-muted">{{ i_item.shop.title }}</small></p>
+                  </div>
+                  <a class="btn btn-warning" href="{% url 'item_detail' i_item.id %}">Check out</a>
+              </div>
+          </div>
+      {% endfor %}
+  </div>
+</div>
+
+</body>
+{% endblock %}

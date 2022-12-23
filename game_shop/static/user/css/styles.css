@@ -1,0 +1,132 @@
+.bg-reg {
+    background-image: url("../image/REGISTER.png");
+    font-family: 'Abril Fatface', cursive;
+    color: white;
+}
+
+.bg-login {
+    background-image: url("../image/LOGIN.png");
+    font-family: 'Abril Fatface', cursive;
+    color: white;
+}
+
+.bg-profile {
+    background-image: url("../image/PROFILE.png");
+    font-family: 'Abril Fatface', cursive;
+    color: white;
+}
+
+.bg-balance {
+    background-image: url("../image/BALANCE.png");
+    font-family: 'Abril Fatface', cursive;
+    color: white;
+}
+
+.input-reg {
+    width: 278px;
+    height: 48px;
+    background: rgba(37, 2, 2, 0.8);
+    border: 0 solid;
+}
+
+.reg-form-center {
+    margin-left: 800px;
+    margin-top: 250px;
+}
+
+.reg-button {
+    box-sizing: border-box;
+    position: absolute;
+    background-color: transparent;
+    width: 134px;
+    height: 49px;
+    border: 1px solid #FFB800;
+    border-radius: 22px;
+    color: #FFB800;
+    font-family: 'Abril Fatface', cursive;
+    font-size: 20px;
+    margin-left: 70px;
+    text-decoration:none;
+    text-align: center;
+}
+
+.reg-button:hover {
+  transition-duration: 0.4s;
+  background-color: #FFB800;
+  color: white;
+}
+
+input {outline:none;}
+
+input::placeholder {
+    font-family: 'Abril Fatface', cursive;
+    font-size: 15px;
+}
+
+input[type=text]
+{
+    color: white;
+    font-family: 'Abril Fatface', cursive;
+    font-size: 15px;
+}
+
+input[type=password]
+{
+    color: white;
+    font-family: 'Abril Fatface', cursive;
+    font-size: 15px;
+}
+
+.user-card {
+    background-color: rgba(37, 2, 2, 0.8);
+    border-radius: 35px;
+}
+
+.img-with-text {
+    text-align: justify;
+    width: 200px;
+}
+
+.img-with-text img {
+    display: block;
+    margin: 0 auto;
+}
+
+.get-balance-btn {
+    box-sizing: border-box;
+    position: absolute;
+    background-color: transparent;
+    width: 134px;
+    height: 29px;
+    border: 1px solid #FFB800;
+    border-radius: 22px;
+    color: #FFB800;
+    font-family: 'Abril Fatface', cursive;
+    font-size: 20px;
+    margin-left: 70px;
+    text-decoration:none;
+    text-align: center;
+}
+
+.get-balance-btn:hover {
+  transition-duration: 0.4s;
+  background-color: #FFB800;
+  color: white;
+}
+
+.decimal-balance {
+    width: 278px;
+    height: 48px;
+    background: rgba(37, 2, 2, 0.8);
+    border: 0 solid;
+
+    font-family: "Abril Fatface", cursive;
+    color: white;
+
+    font-size: 15px;
+}
+
+.balance-input {
+    margin-left: 800px;
+    margin-top: 400px;
+}

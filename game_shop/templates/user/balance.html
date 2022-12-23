@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'user/css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <title>Get balance</title>
+</head>
+{% endblock %}
+
+{% block body %}
+<body class="bg-balance">
+<div class="balance-input">
+<form method="post">
+    {% csrf_token %}
+    <h3 style="color: #FFB800; font-size: 20px; margin-left: 97px">Amount</h3>
+    {{ form.as_p }}
+    <button type="submit" class="reg-button">Get</button>
+</form>
+</div>
+</body>
+{% endblock %}
+
+</html>

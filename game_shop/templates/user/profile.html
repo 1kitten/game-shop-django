@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <title>Your profile</title>
+    <link rel="icon" type="image/png" href="{% static 'user/image/user_icon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user/css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+</head>
+{% endblock %}
+
+{% block body %}
+<body class="bg-profile">
+<div class="user-card" style="max-width: 1000px; margin-left: 500px; margin-top: 100px">
+    <div>
+        <br>
+        <h3 style="margin-left: 450px; color: #FFB800;">Your Rank</h3>
+        <img src="{{ profile.royalty.image.url }}" alt="royalty picture" width="200" style="margin-left: 380px">
+    </div>
+    <div style="margin-left: 450px">
+        <h3 style="color: #FFB800">Username:</h3>
+        <h4>{{ profile.user.username }}</h4>
+        <h3 style="color: #FFB800">First name:</h3>
+        <h4>{{ profile.user.first_name }}</h4>
+        <h3 style="color: #FFB800">Balance:</h3>
+        <h4>{{ profile.balance }}</h4>
+        <br>
+    </div>
+    <a href="{% url 'get_balance' request.user.id %}" class="get-balance-btn" style="margin-left: 430px;margin-top: 25px">Get balance</a>
+</div>
+</body>
+{% endblock %}
