@@ -29,6 +29,13 @@
             <p class="card-text"><small class="text-muted">{{ item.price}} баллов</small></p>
           </div>
         </div>
+    {% if request.user.is_authenticated %}
+        <form action="{% url "cart:cart_add" item.pk %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add to cart">
+        </form>
+    {% endif %}
     </div>
 </body>
 {% endblock %}

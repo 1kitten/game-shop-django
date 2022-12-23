@@ -1,6 +1,6 @@
-from django.shortcuts import render
 from django.views import generic
 from .models import Item
+from cart.forms import CartAddProductForm
 
 
 class ItemsList(generic.ListView):
@@ -17,3 +17,8 @@ class ItemDetail(generic.DetailView):
     model = Item
     template_name = 'shop/item_detail.html'
     context_object_name = 'item'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_product_form'] = CartAddProductForm()
+        return context
