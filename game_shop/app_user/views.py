@@ -6,10 +6,14 @@ from django import views
 from django.views import generic
 from .forms import RegisterForm, BalanceForm
 from .models import Profile
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class RegisterView(views.View):
     def get(self, request):
+        logger.info('была получена страница с регистрацией')
         registration_form = RegisterForm()
         return render(request, 'user/register.html', {'form': registration_form})
 

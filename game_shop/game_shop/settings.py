@@ -133,3 +133,29 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/'
 
 CART_SESSION_ID = 'cart'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'debug.log'),
+            'level': 'DEBUG'
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'level': 'INFO',
+        }
+    },
+    'loggers': {
+        'app_shop.views': {
+            'handlers': ['file'],
+            'level': 'DEBUG'
+        },
+        'app_user.views': {
+            'handlers': ['console'],
+            'level': 'INFO'
+        }
+    }
+}

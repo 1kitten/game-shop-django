@@ -1,6 +1,9 @@
 from django.views import generic
 from .models import Item
 from cart.forms import CartAddProductForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ItemsList(generic.ListView):
@@ -10,6 +13,7 @@ class ItemsList(generic.ListView):
     template_name = 'shop/items_list.html'
 
     def get_queryset(self):
+        logger.debug('Была вызвана страница со списком игр')
         return Item.objects.select_related('shop').all()
 
 
