@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="icon" type="image/png" href="{% static 'cart/image/cart.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user/css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+</head>
+{% endblock %}
+
+{% block body %}
+<body class="bg-balance">
+<h1>Checkout</h1>
+<div style="margin-left: 850px">
+<div>
+    <h3>Your order</h3>
+    <ul>
+        {% for item in cart %}
+            <li>
+                {{ item.quantity }}x {{ item.product.title }}
+                <span>{{ item.total_price }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>Total: {{ cart.get_total_price }}</p>
+</div>
+    <form action="." method="post" class="order-form">
+        {{ form.as_p }}
+        <button type="submit" class="reg-button">Place order</button>
+        {% csrf_token %}
+    </form>
+</div>
+</body>
+{% endblock %}

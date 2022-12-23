@@ -22,6 +22,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^cart/', include(('cart.urls', 'cart'), namespace='cart')),
+    url(r'^orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('users/', include('app_user.urls')),
     path('', include('app_shop.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
