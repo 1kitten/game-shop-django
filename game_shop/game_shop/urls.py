@@ -18,6 +18,8 @@ from django.conf.urls.static import static
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+import debug_toolbar
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +27,6 @@ urlpatterns = [
     url(r'^orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('users/', include('app_user.urls')),
     path('', include('app_shop.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

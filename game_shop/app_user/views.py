@@ -8,12 +8,12 @@ from .forms import RegisterForm, BalanceForm
 from .models import Profile
 import logging
 
-logger = logging.getLogger(__name__)
+logger_authentication = logging.getLogger('user_authentication')
+logger_increased_balance = logging.getLogger('increased_balance')
 
 
 class RegisterView(views.View):
     def get(self, request):
-        logger.info('была получена страница с регистрацией')
         registration_form = RegisterForm()
         return render(request, 'user/register.html', {'form': registration_form})
 
@@ -38,6 +38,12 @@ class UserProfileView(generic.DetailView):
 class AuthenticateView(LoginView):
     template_name = 'user/login.html'
 
+    def post(self, request, *args, **kwargs):
+        result = super().post(request, *args, **kwargs)
+        if result.status_code == 302:
+            logger_authentication.info('user logged in', extra={'user': request.user.username})
+        return result
+
 
 class SignOutView(LogoutView):
     next_page = '/'
@@ -57,6 +63,7 @@ class UserBalanceView(views.View):
             user_profile = Profile.objects.filter(id=request.user.id).first()
             user_profile.balance += int(amount)
             user_profile.save()
+            logger_increased_balance.info('balance was increased', extra={'user': request.user.username,
+                                                                          'amount': amount})
             return redirect('/')
         return render(request, 'user/balance.html', {'form': balance_form})
-

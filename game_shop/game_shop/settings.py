@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from .logging_formatter import CustomJsonFormatter
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'app_user',
     'cart',
     'orders',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'game_shop.urls'
@@ -134,27 +137,77 @@ LOGIN_REDIRECT_URL = '/'
 
 CART_SESSION_ID = 'cart'
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'json_formatter': {
+            '()': CustomJsonFormatter
+        },
+        'regular_formatter': {
+            'format': "{asctime} - {levelname} - {module} - {message}",
+            'style': "{"
+        }
+    },
     'handlers': {
-        'file': {
+        'user_authentication': {
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'debug.log'),
-            'level': 'DEBUG'
+            'filename': 'authentication.log',
+            'formatter': 'json_formatter'
+        },
+        'user_increased_balance': {
+            'class': 'logging.FileHandler',
+            'filename': 'balance.log',
+            'formatter': 'json_formatter'
+        },
+        'user_made_order': {
+            'class': 'logging.FileHandler',
+            'filename': 'orders.log',
+            'formatter': 'json_formatter'
+        },
+        'user_decreased_balance': {
+            'class': 'logging.FileHandler',
+            'filename': 'decreased_balance.log',
+            'formatter': 'json_formatter'
+        },
+        'user_status_changed': {
+            'class': 'logging.FileHandler',
+            'filename': 'user_status.log',
+            'formatter': 'json_formatter'
         },
         'console': {
             'class': 'logging.StreamHandler',
-            'level': 'INFO',
+            'formatter': 'regular_formatter'
         }
     },
     'loggers': {
-        'app_shop.views': {
-            'handlers': ['file'],
-            'level': 'DEBUG'
+        'user_authentication': {
+            'handlers': ['user_authentication', 'console'],
+            'propagate': False,
+            'level': 'INFO'
         },
-        'app_user.views': {
-            'handlers': ['console'],
+        'increased_balance': {
+            'handlers': ['user_increased_balance', 'console'],
+            'propagate': False,
+            'level': 'INFO'
+        },
+        'orders': {
+            'handlers': ['user_made_order', 'console'],
+            'propagate': False,
+            'level': 'INFO'
+        },
+        'decreased_user_balance': {
+            'handlers': ['user_decreased_balance', 'console'],
+            'propagate': False,
+            'level': 'INFO'
+        },
+        'user_status': {
+            'handlers': ['user_status_changed', 'console'],
+            'propagate': False,
             'level': 'INFO'
         }
     }

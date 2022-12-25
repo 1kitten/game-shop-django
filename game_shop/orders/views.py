@@ -7,6 +7,9 @@ from app_user.utils import decrease_user_balance, increase_user_money_spent, che
 from app_shop.utils import decrease_item_stock
 from django.db import transaction
 from app_user.models import Profile
+import logging
+
+logger = logging.getLogger('orders')
 
 
 @transaction.atomic
@@ -39,9 +42,11 @@ def order_create(request):
                                          quantity=item['quantity'])
 
                 place_order(user_id=request.user.id, product_id=item['product'].id,
-                            decrease_stock_value=item['quantity'], user_money_value=item['price'])
+                            decrease_stock_value=item['quantity'], user_money_value=cart.get_total_price())
 
             cart.clear()
+            logger.info('new order', extra={'user': request.user.username,
+                                            'order': order.id})
             return render(request, 'orders/order/created.html',
                           {'order': order})
     else:
